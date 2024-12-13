@@ -1,0 +1,20 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs once a day at midnight
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Make changes
+        run: |
+          echo "Auto commit on $(date)" >> auto_commit.txt
+          git add auto_commit.txt
+          git commit -m "Auto commit on $(date)"
+          git push
